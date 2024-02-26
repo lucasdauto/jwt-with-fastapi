@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from fastapi import status
 from sqlalchemy.exc import IntegrityError
 from app.database.models import UserModel
 from app.schemas import User
@@ -9,9 +10,10 @@ from fastapi.exceptions import HTTPException
 cryt_context = CryptContext(schemes=['sha256_crypt'])
 
 class UserCases:
-
+    
     def __init__(self, db_session: Session):
         self.db_session = db_session
+
 
     def user_register(self, user: User):
         try:
@@ -22,5 +24,8 @@ class UserCases:
             return new_user
 
         except IntegrityError:
-            raise HTTPException(status_code=400, detail="User already exists")
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail='User already exists'
+            )
             
