@@ -8,4 +8,4 @@ services:
     env_file:
       - ./.env
     volumes:
-      - /var/cache/postgres_data_2:/var/lib/postgresql/data
+      - /var/cache/postgres_data:/var/lib/postgresql/data
